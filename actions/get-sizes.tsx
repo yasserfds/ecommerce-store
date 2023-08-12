@@ -1,11 +1,11 @@
-import { Size } from "@/types";
+import { Product } from "@/types";
 
-const URL=`${process.env.NEXT_PUBLIC_API_URL}/sizes`;
+const URL=`${process.env.NEXT_PUBLIC_API_URL}/products`;
 
-const getSizes = async (): Promise<Size[]> => {
-  const res = await fetch(URL);
+const getProduct = async (id: string): Promise<Product> => {
+  const res = await fetch(`${URL}/${id}`);
 
   return res.json();
 };
 
-export default getSizes;
+export default getProduct;

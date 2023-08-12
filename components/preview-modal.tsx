@@ -1,28 +1,26 @@
-"use client";
+import Link from "next/link";
 
-import usePreviewModal from "@/hooks/use-preview-modal";
-import Modal from "@/components/ui/modal";
-import Gallery from "@/components/gallery";
-import Info from "@/components/info";
+import MainNav from "@/components/main-nav";
+import Container from "@/components/ui/container";
+import NavbarActions from "@/components/navbar-actions";
+import getCategories from "@/actions/get-categories";
 
-const PreviewModal = () => {
-  const previewModal = usePreviewModal();
-  const product = usePreviewModal((state) => state.data);
+const Navbar = async () => {
+  const categories = await getCategories();
 
-  if (!product) {
-    return null;
-  }
-
-  return (
-    <Modal open={previewModal.isOpen} onClose={previewModal.onClose}>
-      <div className="grid w-full grid-cols-1 items-start gap-x-6 gap-y-8 sm:grid-cols-12 lg:gap-x-8">
-        <Gallery images={product.images} />
-      </div>
-      <div className="sm:col-span-8 lg:col-span-7">
-        <Info data={product} />
-      </div>
-    </Modal>
+  return ( 
+    <div className="border-b">
+      <Container>
+        <div className="relative px-4 sm:px-6 lg:px-8 flex h-16 items-center">
+          <Link href="/" className="ml-4 flex lg:ml-0 gap-x-2">
+            <p className="font-bold text-xl">STORE</p>
+          </Link>
+          <MainNav data={categories} />
+          <NavbarActions />
+        </div>
+      </Container>
+    </div>
   );
 };
-
-export default PreviewModal;
+ 
+export default Navbar;
